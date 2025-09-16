@@ -27,6 +27,15 @@ spring:
          - Path=/api/productos/** #Esta es la ruta a la cual se accedera
         filters:
          - StripPrefix=2
+
+      - id: mvs-habitaciones 
+        uri: lb://mvs-habitaciones
+        predicates:
+         - Path=/api/habitaciones/** 
+        filters:
+         - StripPrefix=2
+
+
 server:
  port: 8090
 
