@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface CommonService <RQ,RS>{
 	List<RS> listar();
-	RS ObtenerPorId(long id);
-	RS Insertar(RQ request);
+	RS obtenerPorId(Long id);
+	RS insertar(RQ request);
 	RS actualizar(RQ request, Long id);
-	RS eliminar(long id);
+	RS eliminar(Long id);
 	
 }

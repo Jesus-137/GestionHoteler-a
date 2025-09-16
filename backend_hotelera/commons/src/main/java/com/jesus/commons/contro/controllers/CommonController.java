@@ -34,12 +34,12 @@ public class CommonController <RQ, RS, S extends CommonService<RQ, RS>>{
 	@GetMapping("/{id}")
 	public ResponseEntity<RS> obtenerPorId(@PathVariable
 			@Positive(message="El id deveser un entero positivo") Long id){
-		return ResponseEntity.ok(Service.ObtenerPorId(id));
+		return ResponseEntity.ok(Service.obtenerPorId(id));
 	}
 	
 	@PostMapping
 	public ResponseEntity <RS> insertar(@Valid @RequestBody RQ request){
-		return ResponseEntity.status(HttpStatus.CREATED).body(Service.Insertar(request));
+		return ResponseEntity.status(HttpStatus.CREATED).body(Service.insertar(request));
 	}
 	
 	@PutMapping("/{id}")
