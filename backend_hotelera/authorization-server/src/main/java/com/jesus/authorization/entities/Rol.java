@@ -9,7 +9,7 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "ROLES_OAUTH")
+@Table(name = "ROLES")
 public class Rol {
 	
 	@Id

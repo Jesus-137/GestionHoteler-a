@@ -2,6 +2,12 @@ spring:
  application:
   name: api-gateway
 
+ security:
+  oauth2:
+   resourceserver:
+    jwt:
+     jwk-set-uri: http://localhost:9000/oauth2/jwks #esta configuracion esta en la documentacion
+
  cloud:
   loadbalancer:
    enabled: true

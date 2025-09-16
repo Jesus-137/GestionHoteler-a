@@ -16,7 +16,7 @@ import jakarta.persistence.JoinColumn;
 
 
 @Entity
-@Table(name = "USUARIOS_OAUTH")
+@Table(name = "USUARIOS")
 public class Usuario {
 	
 	@Id
