@@ -9,10 +9,10 @@ spring:
    server:
     webflux:
      routes:
-      - id: msv-categorias #aqui va el nombre del msv
-        uri: lb://msv-categorias #aqui va el nombre del msv
+      - id: msv-huespedes #aqui va el nombre del msv
+        uri: lb://msv-huespedes #aqui va el nombre del msv
         predicates:
-         - Path=/api/categorias/** #Esta es la ruta a la cual se accedera
+         - Path=/api/huespedes/** #Esta es la ruta a la cual se accedera
         filters:
          - StripPrefix=2
       - id: msv-proveedores #aqui va el nombre del msv
