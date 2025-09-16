@@ -1,4 +1,4 @@
-package com.christian.oauth.controllers;
+package com.jesus.authorization.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.christian.oauth.dto.LoginRequest;
-import com.christian.oauth.dto.UsuarioRequest;
-import com.christian.oauth.dto.UsuarioResponse;
-import com.christian.oauth.services.AuthService;
-import com.christian.oauth.services.UsuarioService;
+import com.jesus.authorization.dto.LoginRequest;
+import com.jesus.authorization.dto.UsuarioRequest;
+import com.jesus.authorization.dto.UsuarioResponse;
+import com.jesus.authorization.service.AuthService;
+import com.jesus.authorization.service.UsuarioService;
 
 import jakarta.validation.Valid;
 

@@ -1,11 +1,11 @@
-package com.christian.oauth.repositories;
+package com.jesus.authorization.repositories;
 
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.christian.oauth.entities.Usuario;
+import com.jesus.authorization.entities.Usuario;
 
 
 @Repository

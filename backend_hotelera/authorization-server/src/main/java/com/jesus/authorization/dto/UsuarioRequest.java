@@ -1,4 +1,4 @@
-package com.christian.oauth.dto;
+package com.jesus.authorization.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

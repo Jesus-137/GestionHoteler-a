@@ -1,4 +1,4 @@
-package com.christian.oauth.services;
+package com.jesus.authorization.service;
 
 public interface AuthService {
 	

@@ -1,12 +1,12 @@
-package com.christian.oauth.services;
+package com.jesus.authorization.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.christian.oauth.entities.Usuario;
-import com.christian.oauth.repositories.UsuarioRepository;
+import com.jesus.authorization.entities.Usuario;
+import com.jesus.authorization.repositories.UsuarioRepository;
 
 import java.util.stream.Collectors;
 

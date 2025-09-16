@@ -1,9 +1,9 @@
-package com.christian.oauth.services;
+package com.jesus.authorization.service;
 
 import java.util.Set;
 
-import com.christian.oauth.dto.UsuarioRequest;
-import com.christian.oauth.dto.UsuarioResponse;
+import com.jesus.authorization.dto.UsuarioRequest;
+import com.jesus.authorization.dto.UsuarioResponse;
 
 public interface UsuarioService {
 	

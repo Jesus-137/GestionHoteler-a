@@ -1,4 +1,4 @@
-package com.christian.oauth.services;
+package com.jesus.authorization.service;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -7,12 +7,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.christian.oauth.dto.UsuarioRequest;
-import com.christian.oauth.dto.UsuarioResponse;
-import com.christian.oauth.entities.Rol;
-import com.christian.oauth.entities.Usuario;
-import com.christian.oauth.repositories.RolRepository;
-import com.christian.oauth.repositories.UsuarioRepository;
+import com.jesus.authorization.dto.UsuarioRequest;
+import com.jesus.authorization.dto.UsuarioResponse;
+import com.jesus.authorization.entities.Rol;
+import com.jesus.authorization.entities.Usuario;
+import com.jesus.authorization.repositories.RolRepository;
+import com.jesus.authorization.repositories.UsuarioRepository;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService{

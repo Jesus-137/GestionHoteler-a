@@ -1,4 +1,4 @@
-package com.christian.oauth.entities;
+package com.jesus.authorization.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

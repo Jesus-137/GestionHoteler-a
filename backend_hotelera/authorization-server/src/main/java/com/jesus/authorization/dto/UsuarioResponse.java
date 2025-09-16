@@ -1,4 +1,4 @@
-package com.christian.oauth.dto;
+package com.jesus.authorization.dto;
 
 import java.util.Set;
 

@@ -1,4 +1,4 @@
-package com.christian.oauth.security;
+package com.jesus.authorization.security;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -35,11 +35,11 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
 
-import com.christian.oauth.entities.Rol;
-import com.christian.oauth.entities.Usuario;
-import com.christian.oauth.repositories.RolRepository;
-import com.christian.oauth.repositories.UsuarioRepository;
-import com.christian.oauth.services.CustomUserDetailsService;
+import com.jesus.authorization.entities.Rol;
+import com.jesus.authorization.entities.Usuario;
+import com.jesus.authorization.repositories.RolRepository;
+import com.jesus.authorization.repositories.UsuarioRepository;
+import com.jesus.authorization.service.CustomUserDetailsService;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
