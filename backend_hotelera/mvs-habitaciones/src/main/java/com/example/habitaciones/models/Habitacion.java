@@ -14,7 +14,7 @@ public class Habitacion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "HABITACONES_SEQ")
 	@SequenceGenerator(name = "HABITACIONES_SEQ", sequenceName = "HABITACIONES_SEQ", allocationSize = 1)
-	@Column(name = "ID_REGION")
+	@Column(name = "ID")
 	private Long id;
 	
 	@Column(name = "NUMERO", nullable = false)
