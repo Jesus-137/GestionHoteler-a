@@ -21,8 +21,8 @@ spring:
          - Path=/api/habitaciones/** 
         filters:
          - StripPrefix=2
-      - id: mvs-huespedes 
-        uri: lb://mvs-huespedes
+      - id: msv-huespedes 
+        uri: lb://msv-huespedes
         predicates:
          - Path=/api/huespedes/** 
         filters:
