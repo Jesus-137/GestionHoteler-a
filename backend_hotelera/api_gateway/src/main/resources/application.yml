@@ -15,29 +15,16 @@ spring:
    server:
     webflux:
      routes:
-      - id: msv-categorias #aqui va el nombre del msv
-        uri: lb://msv-categorias #aqui va el nombre del msv
-        predicates:
-         - Path=/api/categorias/** #Esta es la ruta a la cual se accedera
-        filters:
-         - StripPrefix=2
-      - id: msv-proveedores #aqui va el nombre del msv
-        uri: lb://msv-proveedores #aqui va el nombre del msv
-        predicates:
-         - Path=/api/proveedores/** #Esta es la ruta a la cual se accedera
-        filters:
-         - StripPrefix=2
-      - id: msv-productos #aqui va el nombre del msv
-        uri: lb://msv-productos #aqui va el nombre del msv
-        predicates:
-         - Path=/api/productos/** #Esta es la ruta a la cual se accedera
-        filters:
-         - StripPrefix=2
-
       - id: mvs-habitaciones 
         uri: lb://mvs-habitaciones
         predicates:
          - Path=/api/habitaciones/** 
+        filters:
+         - StripPrefix=2
+      - id: mvs-huespedes 
+        uri: lb://mvs-huespedes
+        predicates:
+         - Path=/api/huespedes/** 
         filters:
          - StripPrefix=2
 
