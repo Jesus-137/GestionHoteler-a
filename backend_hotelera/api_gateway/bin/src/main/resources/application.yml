@@ -2,12 +2,6 @@ spring:
  application:
   name: api-gateway
 
- security:
-  oauth2:
-   resourceserver:
-    jwt:
-     jwk-set-uri: http://localhost:9000/oauth2/jwks #esta configuracion esta en la documentacion
-
  cloud:
   loadbalancer:
    enabled: true
@@ -33,15 +27,6 @@ spring:
          - Path=/api/productos/** #Esta es la ruta a la cual se accedera
         filters:
          - StripPrefix=2
-
-      - id: mvs-habitaciones 
-        uri: lb://mvs-habitaciones
-        predicates:
-         - Path=/api/habitaciones/** 
-        filters:
-         - StripPrefix=2
-
-
 server:
  port: 8090
 

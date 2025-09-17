@@ -1,4 +1,4 @@
-package com.jesus.commons.contro.controllers;
+package com.jesus.commons.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
