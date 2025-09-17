@@ -1,0 +1,36 @@
+spring:
+ application:
+  name: api-gateway
+
+ cloud:
+  loadbalancer:
+   enabled: true
+  gateway:
+   server:
+    webflux:
+     routes:
+      - id: msv-categorias #aqui va el nombre del msv
+        uri: lb://msv-categorias #aqui va el nombre del msv
+        predicates:
+         - Path=/api/categorias/** #Esta es la ruta a la cual se accedera
+        filters:
+         - StripPrefix=2
+      - id: msv-proveedores #aqui va el nombre del msv
+        uri: lb://msv-proveedores #aqui va el nombre del msv
+        predicates:
+         - Path=/api/proveedores/** #Esta es la ruta a la cual se accedera
+        filters:
+         - StripPrefix=2
+      - id: msv-productos #aqui va el nombre del msv
+        uri: lb://msv-productos #aqui va el nombre del msv
+        predicates:
+         - Path=/api/productos/** #Esta es la ruta a la cual se accedera
+        filters:
+         - StripPrefix=2
+server:
+ port: 8090
+
+eureka:
+ client:
+  service-url:
+   defaultZone: http://localhost:8761/eureka

@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "eureka.cliente.regisrtre-with-eureka",
+    "type": "java.lang.String",
+    "description": "A description for 'eureka.cliente.regisrtre-with-eureka'"
+  },
+  {
+    "name": "eureka.cliente.fetch-registry",
+    "type": "java.lang.String",
+    "description": "A description for 'eureka.cliente.fetch-registry'"
+  }
+]}
