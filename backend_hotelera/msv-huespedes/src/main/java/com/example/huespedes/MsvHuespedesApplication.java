@@ -1,4 +1,4 @@
-package com.example.huspedes;
+package com.example.huespedes;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
