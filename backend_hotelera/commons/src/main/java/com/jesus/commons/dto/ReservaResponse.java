@@ -4,8 +4,8 @@ import java.sql.Date;
 
 public record ReservaResponse(
 	Long id,
-	Long idHuesped,
-	Long idHabitacion,
+	String huesped,
+	Long habitacion,
 	Date fechaEntrada,
 	Date fecheSalida,
 	Integer noches,
