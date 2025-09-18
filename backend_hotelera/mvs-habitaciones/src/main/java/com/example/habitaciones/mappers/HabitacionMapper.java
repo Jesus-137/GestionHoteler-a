@@ -3,6 +3,7 @@ package com.example.habitaciones.mappers;
 import org.springframework.stereotype.Component;
 
 import com.example.habitaciones.models.Habitacion;
+import com.jesus.commons.Enum.EstadoHabitacionEnum;
 import com.jesus.commons.dto.HabitacionRequest;
 import com.jesus.commons.dto.HabitacionResponse;
 import com.jesus.commons.mappers.CommonMapper;
@@ -32,11 +33,35 @@ public class HabitacionMapper extends CommonMapper <HabitacionRequest, Habitacio
 		if (request == null) {
 			return null;
 		}
+		/*DISPONIBLE,
+		OCUPADA,
+		LIMPIEZA,
+		MANTENIMIENTO;*/
+		String estado;
+		switch (request.estado()){
+			case 1-> {
+				estado = EstadoHabitacionEnum.DISPONIBLE.getNombre();
+			}
+			case 2->{
+				estado = EstadoHabitacionEnum.OCUPADA.getNombre();
+			}
+			case 3->{
+				estado = EstadoHabitacionEnum.LIMPIEZA.getNombre();
+			}
+			case 4->{
+				estado = EstadoHabitacionEnum.MANTENIMIENTO.getNombre();
+			}
+			default->{
+				throw new IllegalArgumentException("Unexpected value: " + request.estado());
+			}
+		}
 		Habitacion habitacion = new Habitacion();
 		habitacion.setNumero(request.numero());
+		habitacion.setTipo(request.tipo());
+		habitacion.setDescripcion(request.descripcion());
+		habitacion.setPrecio(request.precio());
+		habitacion.setCapacidad(request.capacidad());
+		habitacion.setEstado(estado);
 		return habitacion;
 	}
-
-	
-
 }

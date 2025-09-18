@@ -1,8 +1,10 @@
 package com.hotelera.reserva.mappers;
 
-import java.sql.Date;
+
+import org.springframework.stereotype.Component;
 
 import com.hotelera.reserva.model.Reserva;
+import com.jesus.commons.Enum.EstadoReservaEnum;
 import com.jesus.commons.clients.HabitacionClient;
 import com.jesus.commons.clients.HuespedClient;
 import com.jesus.commons.dto.HabitacionResponse;
@@ -11,6 +13,7 @@ import com.jesus.commons.dto.ReservaRequest;
 import com.jesus.commons.dto.ReservaResponse;
 import com.jesus.commons.mappers.CommonMapper;
 
+@Component
 public class ReservaMapper extends CommonMapper<ReservaRequest, ReservaResponse, Reserva> {
 
 	private final HuespedClient huespedClient;
@@ -47,6 +50,25 @@ public class ReservaMapper extends CommonMapper<ReservaRequest, ReservaResponse,
 		if(request==null) {
 			return null;
 		}
+
+		String estado;
+		switch (request.estado()) {
+			case 1-> {
+				estado = EstadoReservaEnum.CONFIRMADA.getNombre();
+			}
+			case 2->{
+				estado = EstadoReservaEnum.EN_CURSO.getNombre();
+			}
+			case 3->{
+				estado = EstadoReservaEnum.FINALIZADA.getNombre();
+			}
+			case 4->{
+				estado = EstadoReservaEnum.CANCELADA.getNombre();
+			}
+			default->{
+				throw new IllegalArgumentException("Unexpected value: " + request.estado());
+			}
+		}
 		
 		Reserva reserva = new Reserva();
 		reserva.setIdHuesped(request.idHuesped());
@@ -55,8 +77,7 @@ public class ReservaMapper extends CommonMapper<ReservaRequest, ReservaResponse,
 		reserva.setFecheSalida(request.fecheSalida());
 		reserva.setNoches(request.noches());
 		reserva.setTotal(request.total());
-		reserva.setEstado(request.estado());
+		reserva.setEstado(estado);
 		return reserva;
 	}
-
 }

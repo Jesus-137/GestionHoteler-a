@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jesus.commons.Enum.DocumentoEnum;
 import com.jesus.commons.dto.HuespedRequest;
 import com.jesus.commons.dto.HuespedResponse;
 import com.example.huespedes.mappers.HuespedMapper;
@@ -51,7 +52,7 @@ public class HuespedServiceImpl implements HuespedService {
 		huesped.setApellido(request.apellido());
 		huesped.setEmail(request.email());
 		huesped.setTelefono(request.telefono());
-		huesped.setDocumento(request.documento());
+		huesped.setDocumento(request.documento()==1?DocumentoEnum.INE.getNombre():DocumentoEnum.PASAPORTE.getNombre());
 		huesped.setNacionalidad(request.nacionalidad());
 		
 		return huespedMapper.entityToResponse(huespedRepository.save(huesped));

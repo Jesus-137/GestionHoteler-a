@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.habitaciones.mappers.HabitacionMapper;
 import com.example.habitaciones.models.Habitacion;
 import com.example.habitaciones.repositories.HabitacionRepository;
+import com.jesus.commons.Enum.EstadoReservaEnum;
 import com.jesus.commons.dto.HabitacionRequest;
 import com.jesus.commons.dto.HabitacionResponse;
 import java.util.NoSuchElementException;
@@ -59,11 +60,32 @@ public class HabitacionServiceImpl implements HabitacionService{
 	public HabitacionResponse actualizar(HabitacionRequest request, Long id) {
 		Habitacion habitacion = habitacionRepository.findById(id).orElseThrow(
 				() -> new NoSuchElementException("La habitacion no encontrada con el id: " + id));
+		String estado;
+		switch (request.estado()) {
+			case 1-> {
+				estado = EstadoReservaEnum.CONFIRMADA.getNombre();
+			}
+			case 2->{
+				estado = EstadoReservaEnum.EN_CURSO.getNombre();
+			}
+			case 3->{
+				estado = EstadoReservaEnum.FINALIZADA.getNombre();
+			}
+			case 4->{
+				estado = EstadoReservaEnum.CANCELADA.getNombre();
+			}
+			default->{
+				throw new IllegalArgumentException("Unexpected value: " + request.estado());
+			}
+		}
 		habitacion.setNumero(request.numero());
+		habitacion.setTipo(request.tipo());
+		habitacion.setDescripcion(request.descripcion());
+		habitacion.setPrecio(request.precio());
+		habitacion.setCapacidad(request.capacidad());
+		habitacion.setEstado(estado);
 		return habitacionMapper.entityToResponse(habitacionRepository.save(habitacion));
 	}
-
-
 
 	@Override
 	public HabitacionResponse eliminar(long id) {

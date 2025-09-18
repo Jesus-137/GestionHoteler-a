@@ -1,6 +1,7 @@
 package com.jesus.commons.dto;
 
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -27,5 +28,7 @@ public record HabitacionRequest(
 		Long capacidad,
 		
 		@NotNull(message = "El estado es requerida")
-		String estado
+		@Min(1)
+		@Max(4)
+		Integer estado
 ) {}

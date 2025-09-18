@@ -1,30 +1,32 @@
 package com.jesus.commons.dto;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-
-
-import org.hibernate.validator.constraints.UniqueElements;
-
-
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 public record HuespedRequest(
 		@NotBlank(message = "El nombre es requerido")
+		@Size(min=3, max=50, message="El nombre tiene que tener entre 3 a 50 caracteres")
 		String nombre,
 		@NotBlank(message = "El apellido es requerido")
+		@Size(min=3, max=50, message="El apellido tiene que tener entre 3 a 50 caracteres")
 		String apellido,
 		@NotBlank(message = "El email es requerido")
 		@Email(message = "Debe ser un email válido")
-	    @UniqueElements
 		String email,
 		@NotBlank(message = "El telefono es requerido")
-		@Email(message = "Debe ser un telefono válido")
-	    @UniqueElements
+		@Pattern(regexp = "^[0-9\\-\\+\\s]+$", message = "Debe ser un teléfono válido")
+		@Size(min = 10, max = 10, message = "El teléfono debe tener 10 caracteres")
 		String telefono,
-		@NotBlank(message = "El documento es requerido")
-		String documento,
+		@NotNull(message = "El documento es requerido")
+		@Min(1)
+		@Max(2)
+		Integer documento,
 		@NotBlank(message = "La nacionalidad es requerido")
+		@Size(min=3, max=50, message="La nacionalidad tiene que tener entre 3 a 50 caracteres")
 		String nacionalidad
-		) {
-
-}
+) {}

@@ -27,6 +27,12 @@ spring:
          - Path=/api/huespedes/** 
         filters:
          - StripPrefix=2
+      - id: msv-reserva
+        uri: lb://msv-resera
+        predicates:
+         - Path=/api/reserva/**
+        filters:
+         - StripPrefix=2
 
 
 server:

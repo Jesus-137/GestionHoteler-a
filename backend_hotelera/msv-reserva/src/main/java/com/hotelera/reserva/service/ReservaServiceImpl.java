@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hotelera.reserva.mappers.ReservaMapper;
 import com.hotelera.reserva.model.Reserva;
 import com.hotelera.reserva.repositories.ReservaReposity;
+import com.jesus.commons.Enum.EstadoReservaEnum;
 import com.jesus.commons.clients.HabitacionClient;
 import com.jesus.commons.clients.HuespedClient;
 import com.jesus.commons.dto.ReservaRequest;
@@ -51,14 +52,32 @@ public class ReservaServiceImpl implements ReservaService{
 	}
 
 	@Override
-	public ReservaResponse actualizar(ReservaRequest request, Long id) {
+	public ReservaResponse actualizar(ReservaRequest request, Long id) {		
 		Reserva reserva =  reservaRepo.findById(id).orElseThrow(
 				()-> new NoSuchElementException("Reserva no encontrada con el id: "+id));
+		String estado;
+		switch (request.estado()) {
+			case 1-> {
+				estado = EstadoReservaEnum.CONFIRMADA.getNombre();
+			}
+			case 2->{
+				estado = EstadoReservaEnum.EN_CURSO.getNombre();
+			}
+			case 3->{
+				estado = EstadoReservaEnum.FINALIZADA.getNombre();
+			}
+			case 4->{
+				estado = EstadoReservaEnum.CANCELADA.getNombre();
+			}
+			default->{
+				throw new IllegalArgumentException("Unexpected value: " + request.estado());
+			}
+		}
 		reserva.setIdHabitacion(request.idHabitacion());
 		reserva.setFechaEntrada(request.fechaEntrada());
 		reserva.setFecheSalida(request.fecheSalida());
 		reserva.setNoches(request.noches());
-		reserva.setEstado(request.estado());
+		reserva.setEstado(estado);
 		return reservaMapper.entityToResponse(reserva);
 	}
 

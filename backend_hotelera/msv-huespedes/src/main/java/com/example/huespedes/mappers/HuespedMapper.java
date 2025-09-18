@@ -3,6 +3,7 @@ package com.example.huespedes.mappers;
 import org.springframework.stereotype.Component;
 
 import com.example.huespedes.models.Huesped;
+import com.jesus.commons.Enum.DocumentoEnum;
 import com.jesus.commons.dto.HuespedRequest;
 import com.jesus.commons.dto.HuespedResponse;
 import com.jesus.commons.mappers.CommonMapper;
@@ -27,7 +28,7 @@ public class HuespedMapper extends CommonMapper<HuespedRequest, HuespedResponse,
 		huesped.setApellido(request.apellido());
 		huesped.setEmail(request.email());
 		huesped.setTelefono(request.telefono());
-		huesped.setDocumento(request.documento());
+		huesped.setDocumento(request.documento()==1?DocumentoEnum.INE.getNombre():DocumentoEnum.PASAPORTE.getNombre());
 		huesped.setNacionalidad(request.nacionalidad());
 		return huesped;
 	}

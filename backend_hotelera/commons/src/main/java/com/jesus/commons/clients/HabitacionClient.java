@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.jesus.commons.dto.HabitacionResponse;
-import com.jesus.commons.dto.HuespedResponse;
 
 @FeignClient(name="mvs-habitaciones")
 public interface HabitacionClient {
