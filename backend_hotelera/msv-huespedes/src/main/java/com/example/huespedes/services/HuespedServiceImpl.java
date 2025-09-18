@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jesus.commons.Enum.DocumentoEnum;
+import com.jesus.commons.clients.ReservaClient;
 import com.jesus.commons.dto.HuespedRequest;
 import com.jesus.commons.dto.HuespedResponse;
 import com.example.huespedes.mappers.HuespedMapper;
@@ -21,12 +22,15 @@ public class HuespedServiceImpl implements HuespedService {
 	
 	private final HuespedMapper huespedMapper;
 	private final HuespedRepository huespedRepository;
+	private final ReservaClient reservaClient;
 	
-	public HuespedServiceImpl(HuespedMapper huespedMapper, HuespedRepository huespedrepository) {
+	public HuespedServiceImpl(HuespedMapper huespedMapper, HuespedRepository huespedRepository,
+			ReservaClient reservaClient) {
 		this.huespedMapper = huespedMapper;
-		this.huespedRepository = huespedrepository;
+		this.huespedRepository = huespedRepository;
+		this.reservaClient = reservaClient;
 	}
-	
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<HuespedResponse> listar() {
@@ -41,6 +45,14 @@ public class HuespedServiceImpl implements HuespedService {
 
 	@Override
 	public HuespedResponse Insertar(HuespedRequest request) {
+		huespedRepository.findAll().forEach(hu->{
+			if(hu.getEmail()==request.email()) {
+				throw new NoSuchElementException("El email ya esta en uso");
+			}
+			if(hu.getTelefono()==request.telefono()) {
+				throw new NoSuchElementException("El telefono ya esta en uso");
+			}
+		});
 		return huespedMapper.entityToResponse(huespedRepository.save(huespedMapper.requetsToEntity(request)));
 	}
 
@@ -48,6 +60,14 @@ public class HuespedServiceImpl implements HuespedService {
 	public HuespedResponse actualizar(HuespedRequest request, Long id) {
 		Huesped huesped = huespedRepository.findById(id).orElseThrow(
 				() -> new NoSuchElementException("Huesped no encontrado con el id: " + id));
+		huespedRepository.findAll().forEach(hu->{
+			if(hu.getEmail()==request.email()&&hu.getId()!=id) {
+				throw new NoSuchElementException("El email ya esta en uso");
+			}
+			if(hu.getTelefono()==request.telefono()&&hu.getId()!=id) {
+				throw new NoSuchElementException("El telefono ya esta en uso");
+			}
+		});
 		huesped.setNombre(request.nombre());
 		huesped.setApellido(request.apellido());
 		huesped.setEmail(request.email());
@@ -62,11 +82,10 @@ public class HuespedServiceImpl implements HuespedService {
 	public HuespedResponse eliminar(long id) {
 		Huesped huesped = huespedRepository.findById(id).orElseThrow(
 				() -> new NoSuchElementException("Huesped no encontrado con el id: " + id));
+		if(reservaClient.huespedIsPresent(id)) {
+			throw new NoSuchElementException("El huesped no se puede eliminar porque tiene una reservacion");
+		}
 		huespedRepository.deleteById(id);
 		return huespedMapper.entityToResponse(huesped);
 	}
-	
-	
-	
-
 }

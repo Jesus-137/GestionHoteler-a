@@ -10,10 +10,10 @@ import jakarta.validation.constraints.Size;
 
 public record HuespedRequest(
 		@NotBlank(message = "El nombre es requerido")
-		@Size(min=3, max=50, message="El nombre tiene que tener entre 3 a 50 caracteres")
+		@Size(min=10, max=50, message="El nombre tiene que tener entre 10 a 50 caracteres")
 		String nombre,
 		@NotBlank(message = "El apellido es requerido")
-		@Size(min=3, max=50, message="El apellido tiene que tener entre 3 a 50 caracteres")
+		@Size(min=10, max=50, message="El apellido tiene que tener entre 10 a 50 caracteres")
 		String apellido,
 		@NotBlank(message = "El email es requerido")
 		@Email(message = "Debe ser un email válido")
