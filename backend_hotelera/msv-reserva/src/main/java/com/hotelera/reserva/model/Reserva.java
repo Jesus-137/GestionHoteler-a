@@ -28,7 +28,7 @@ public class Reserva {
 	private Date fecheSalida;
 	
 	@Column(name = "noches", nullable=false)
-	private Integer noches;
+	private Long noches;
 	
 	@Column(name = "total", nullable=false)
 	private Double total;
@@ -76,11 +76,11 @@ public class Reserva {
 		this.fecheSalida = fecheSalida;
 	}
 
-	public Integer getNoches() {
+	public Long getNoches() {
 		return noches;
 	}
 
-	public void setNoches(Integer noches) {
+	public void setNoches(Long noches) {
 		this.noches = noches;
 	}
 

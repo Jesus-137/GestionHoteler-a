@@ -12,6 +12,8 @@ import com.hotelera.reserva.repositories.ReservaReposity;
 import com.jesus.commons.Enum.EstadoReservaEnum;
 import com.jesus.commons.clients.HabitacionClient;
 import com.jesus.commons.clients.HuespedClient;
+import com.jesus.commons.dto.HabitacionResponse;
+import com.jesus.commons.dto.HuespedResponse;
 import com.jesus.commons.dto.ReservaRequest;
 import com.jesus.commons.dto.ReservaResponse;
 
@@ -48,13 +50,10 @@ public class ReservaServiceImpl implements ReservaService{
 
 	@Override
 	public ReservaResponse Insertar(ReservaRequest request) {
-		return reservaMapper.entityToResponse(reservaRepo.save(reservaMapper.requetsToEntity(request)));
-	}
-
-	@Override
-	public ReservaResponse actualizar(ReservaRequest request, Long id) {		
-		Reserva reserva =  reservaRepo.findById(id).orElseThrow(
-				()-> new NoSuchElementException("Reserva no encontrada con el id: "+id));
+		if(request.fechaEntrada().after(request.fecheSalida())) {
+			throw new NoSuchElementException("La fecha de entrada no puede ser despues de la fecha de salida");
+		}
+		long noches = request.fechaEntrada().getTime()-request.fecheSalida().getTime();
 		String estado;
 		switch (request.estado()) {
 			case 1-> {
@@ -73,10 +72,57 @@ public class ReservaServiceImpl implements ReservaService{
 				throw new IllegalArgumentException("Unexpected value: " + request.estado());
 			}
 		}
+		HabitacionResponse habitacionResponse = habitacionClient.getHabitacionPorId(request.idHabitacion());
+		double total = habitacionResponse.precio() * noches;
+		if(total<1) {
+			throw new NoSuchElementException("Error al calcular el costo de la reservacion");
+		}
+		Reserva reserva =  new Reserva();
+		reserva.setIdHuesped(request.idHuesped());
 		reserva.setIdHabitacion(request.idHabitacion());
 		reserva.setFechaEntrada(request.fechaEntrada());
 		reserva.setFecheSalida(request.fecheSalida());
-		reserva.setNoches(request.noches());
+		reserva.setNoches(noches);
+		reserva.setEstado(estado);
+		reserva.setTotal(total);
+		return reservaMapper.entityToResponse(reservaRepo.save(reservaMapper.requetsToEntity(request)));
+	}
+
+	@Override
+	public ReservaResponse actualizar(ReservaRequest request, Long id) {		
+		Reserva reserva =  reservaRepo.findById(id).orElseThrow(
+				()-> new NoSuchElementException("Reserva no encontrada con el id: "+id));
+		if(request.fechaEntrada().after(request.fecheSalida())) {
+			throw new NoSuchElementException("La fecha de entrada no puede ser despues de la fecha de salida");
+		}
+		long noches = request.fechaEntrada().getTime()-request.fecheSalida().getTime();
+		String estado;
+		switch (request.estado()) {
+			case 1-> {
+				estado = EstadoReservaEnum.CONFIRMADA.getNombre();
+			}
+			case 2->{
+				estado = EstadoReservaEnum.EN_CURSO.getNombre();
+			}
+			case 3->{
+				estado = EstadoReservaEnum.FINALIZADA.getNombre();
+			}
+			case 4->{
+				estado = EstadoReservaEnum.CANCELADA.getNombre();
+			}
+			default->{
+				throw new IllegalArgumentException("Unexpected value: " + request.estado());
+			}
+		}
+		HuespedResponse huespedResponse = huespedClient.getHuespedPorId(request.idHuesped());
+		HabitacionResponse habitacionResponse = habitacionClient.getHabitacionPorId(request.idHabitacion());
+		double total = habitacionResponse.precio() * noches;
+		reserva.setIdHuesped(habitacionResponse.id());
+		reserva.setIdHabitacion(huespedResponse.id());
+		reserva.setFechaEntrada(request.fechaEntrada());
+		reserva.setFecheSalida(request.fecheSalida());
+		reserva.setNoches(noches);
+		reserva.setTotal(total);
 		reserva.setEstado(estado);
 		return reservaMapper.entityToResponse(reserva);
 	}
