@@ -53,7 +53,7 @@ public class GobalExceptionHandler {
 			LOGGER.log(Level.WARNING, e.getMessage());
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
 					"code", HttpStatus.NOT_FOUND.value(),
-					"response", "No se encontró información asociada con el identificador ingresado"
+					"response", e.getMessage()
 			));
 		}
 		

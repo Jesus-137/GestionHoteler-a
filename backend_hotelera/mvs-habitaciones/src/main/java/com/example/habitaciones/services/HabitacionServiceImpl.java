@@ -14,10 +14,6 @@ import com.jesus.commons.dto.HabitacionRequest;
 import com.jesus.commons.dto.HabitacionResponse;
 import java.util.NoSuchElementException;
 
-
-
-
-
 @Service
 @Transactional
 public class HabitacionServiceImpl implements HabitacionService{
@@ -35,8 +31,7 @@ public class HabitacionServiceImpl implements HabitacionService{
 
 	@Override
 	public List<HabitacionResponse> listar() {
-		return habitacionRepository.findAll().stream()
-				.map(habitacionMapper::entityToResponse).toList();
+		return habitacionRepository.findAll().stream().map(habitacionMapper::entityToResponse).toList();
 	}
 
 	@Override

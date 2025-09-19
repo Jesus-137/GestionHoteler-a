@@ -3,13 +3,11 @@ package com.jesus.commons.dto;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public record HabitacionRequest(
-		
-		@NotBlank(message = "El numero de la habitacion es requerido")
+		@NotNull(message = "El numero de la habitacion es requerido")
 		@Positive(message = "El número de la habitación debe ser mayor a 0")
 		Long numero,
 		

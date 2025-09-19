@@ -26,7 +26,7 @@ public class CommonController <RQ, RS, S extends CommonService<RQ, RS>>{
 		this.Service = service;
 	}
 	
-	@GetMapping
+	@GetMapping("/")
 	public ResponseEntity <List<RS>> listar(){
 		return ResponseEntity.ok(Service.listar());
 	}
