@@ -1,6 +1,9 @@
 package com.hotelera.reserva.mappers;
 
 
+import java.sql.Date;
+import java.util.NoSuchElementException;
+
 import org.springframework.stereotype.Component;
 
 import com.hotelera.reserva.model.Reserva;
@@ -51,6 +54,10 @@ public class ReservaMapper extends CommonMapper<ReservaRequest, ReservaResponse,
 			return null;
 		}
 
+		if(request.fechaEntrada().after(request.fecheSalida())) {
+			throw new NoSuchElementException("La fecha de entrada no puede ser despues de la fecha de salida");
+		}
+		long noches = request.fechaEntrada().getTime()-request.fecheSalida().getTime();
 		String estado;
 		switch (request.estado()) {
 			case 1-> {
@@ -69,15 +76,19 @@ public class ReservaMapper extends CommonMapper<ReservaRequest, ReservaResponse,
 				throw new IllegalArgumentException("Unexpected value: " + request.estado());
 			}
 		}
-		
-		Reserva reserva = new Reserva();
+		HabitacionResponse habitacionResponse = habitacionClient.getHabitacionPorId(request.idHabitacion());
+		double total = habitacionResponse.precio() * noches;
+		if(total<1) {
+			throw new NoSuchElementException("Error al calcular el costo de la reservacion");
+		}
+		Reserva reserva =  new Reserva();
 		reserva.setIdHuesped(request.idHuesped());
 		reserva.setIdHabitacion(request.idHabitacion());
 		reserva.setFechaEntrada(request.fechaEntrada());
 		reserva.setFecheSalida(request.fecheSalida());
-		reserva.setNoches(request.noches());
-		reserva.setTotal(request.total());
+		reserva.setNoches(noches);
 		reserva.setEstado(estado);
+		reserva.setTotal(total);
 		return reserva;
 	}
 }

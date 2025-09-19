@@ -8,7 +8,7 @@ public record ReservaResponse(
 	Long habitacion,
 	Date fechaEntrada,
 	Date fecheSalida,
-	Integer noches,
+	Long noches,
 	Double total,
 	String estado
 ) {}
